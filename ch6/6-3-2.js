@@ -1,20 +1,31 @@
 export class Order {
-  constructor(aRecord) {
-    this._data = aRecord;
-  }
+    #data
 
-  get quantity() {
-    return this._data.quantity;
-  }
-  get itemPrice() {
-    return this._data.itemPrice;
-  }
+    constructor(aRecord) {
+        this.data = aRecord;
+    }
 
-  get price() {
-    return (
-      this.quantity * this.itemPrice -
-      Math.max(0, this.quantity - 500) * this.itemPrice * 0.05 +
-      Math.min(this.quantity * this.itemPrice * 0.1, 100)
-    );
-  }
+    get quantity() {
+        return this.data.quantity;
+    }
+
+    get itemPrice() {
+        return this.data.itemPrice;
+    }
+
+    get price() {
+        return this.basePrice() - this.discount() + this.shipping();
+    }
+
+    get shipping() {
+        return Math.min(this.quantity * this.itemPrice * 0.1, 100);
+    }
+
+    get discount() {
+        return Math.max(0, this.quantity - 500) * this.itemPrice * 0.05;
+    }
+
+    get basePrice() {
+        return this.quantity * this.itemPrice;
+    }
 }
