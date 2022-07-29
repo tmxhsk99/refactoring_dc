@@ -11,11 +11,21 @@ export class Person {
   }
 
   get courses() {
-    return this.#courses;
+    //배열을 복사해서 반환 읽기 전용으로 반환
+    return [...this.#courses];
   }
 
-  set courses(courses) {
-    this.#courses = courses;
+  addCourse(course){
+    this.#courses.push(course);
+  }
+
+  removeCourse(course , runIfAbsent){
+    const index = this.#courses.indexOf(course);
+    if( index === -1) {
+      runIfAbsent();
+      return;
+    }
+    this.#courses.splice(index, 1);
   }
 }
 
@@ -37,5 +47,9 @@ export class Course {
 }
 
 const ellie = new Person('엘리');
-ellie.courses.push(new Course('리팩토링', true));
+const course = new Course('리팩토링', true);
+ellie.addCourse(course);
 console.log(ellie.courses.length);
+ellie.removeCourse(course , ()=>{console.log("해당 코스는 없다.")});
+console.log(ellie.courses.length);
+ellie.removeCourse(course , ()=>{console.log("해당 코스는 없다.")});
