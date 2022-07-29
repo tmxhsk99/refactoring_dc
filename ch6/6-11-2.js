@@ -39,8 +39,10 @@ class FileUtil {
     }
   }
 }
-
-process.argv[2] = 'ch6/orders';
+//nodemon 명령어 입력시 입력하는 방법 도 가능하다
+//예 nodemon ch6/orders -r
+//process.argv[2] = 'ch6/orders';
+process.argv[2] = 'ch6/orders -r';
 const fileUtil = new FileUtil(process);
 fileUtil.checkFileName;
 fileUtil.fileCheck;
