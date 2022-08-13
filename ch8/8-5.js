@@ -1,1 +1,1 @@
-let appliesToMass = state.include('MA');
+let appliesToMass = states.include('MA');
