@@ -23,7 +23,7 @@ class Person {
   }
 
   set officeAreaCode(value) {
-    this.#telephoneNumber.areaCode = value;
+    this.#telephoneNumber = new TelephoneNumber(value, this.telephoneNumber);
   }
 
   get officeNumber() {
@@ -31,9 +31,10 @@ class Person {
   }
 
   set officeNumber(value) {
-    this.#telephoneNumber.number = value;
+    this.#telephoneNumber = new TelephoneNumber(this.officeAreaCode, value);
   }
 }
+//객체 내부안의 참조형을 get만 가능하도록 immutable 하게 만들고 값을 변경하려눈 순간 새로운 객체로 만들어버린다.
 
 class TelephoneNumber {
   #areaCode;
@@ -46,15 +47,9 @@ class TelephoneNumber {
   get areaCode() {
     return this.#areaCode;
   }
-  set areaCode(arg) {
-    this.#areaCode = arg;
-  }
 
   get number() {
     return this.#number;
-  }
-  set number(arg) {
-    this.#number = arg;
   }
 
   get toString() {
