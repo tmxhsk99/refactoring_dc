@@ -34,8 +34,8 @@ class Person {
     this.#telephoneNumber = new TelephoneNumber(this.officeAreaCode, value);
   }
 }
-//객체 내부안의 참조형을 get만 가능하도록 immutable 하게 만들고 값을 변경하려눈 순간 새로운 객체로 만들어버린다.
 
+//객체 내부안의 참조형을 get만 가능하도록 immutable 하게 만들고 값을 변경하려눈 순간 새로운 객체로 만들어버린다.
 class TelephoneNumber {
   #areaCode;
   #number;
@@ -54,6 +54,13 @@ class TelephoneNumber {
 
   get toString() {
     return `(${this.#areaCode}) ${this.#number}`;
+  }
+
+  equals(other) {
+    if(!(other instanceof TelephoneNumber)){
+      return false;
+    }
+    return this.areaCode === other.areaCode && this.number === other.number;
   }
 }
 
